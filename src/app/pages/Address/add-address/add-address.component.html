@@ -1,0 +1,58 @@
+<h2>Addresses for Student ID: {{ studentId }}</h2>
+<button (click)="navigateTo('studentList')" class="nav-btn">Back</button>
+
+<div *ngIf="addresses.length > 0; else noAddresses">
+  <ul>
+    <li *ngFor="let addr of addresses">
+      <strong>{{ addr.street }}, {{ addr.city }}</strong>
+      <p>
+        Neighborhood: {{ addr.neighborhood }}<br />
+        Building: {{ addr.building }}<br />
+        Floor: {{ addr.floor }}<br />
+        Apartment: {{ addr.apartment }}<br />
+        Bed Number: {{ addr.bedNumber }}<br />
+        Bed Side: {{ addr.bedSide }}
+      </p>
+    </li>
+  </ul>
+</div>
+<ng-template #noAddresses>
+  <p>No addresses found for this student.</p>
+</ng-template>
+
+<h3>Add a New Address</h3>
+<form [formGroup]="addressForm" (ngSubmit)="addAddress()">
+  <div>
+    <label for="street">Street</label>
+    <input id="street" formControlName="street" required />
+  </div>
+  <div>
+    <label for="city">City</label>
+    <input id="city" formControlName="city" required />
+  </div>
+  <div>
+    <label for="neighborhood">Neighborhood</label>
+    <input id="neighborhood" formControlName="neighborhood" />
+  </div>
+  <div>
+    <label for="building">Building</label>
+    <input id="building" formControlName="building" />
+  </div>
+  <div>
+    <label for="floor">Floor</label>
+    <input id="floor" formControlName="floor" />
+  </div>
+  <div>
+    <label for="apartment">Apartment</label>
+    <input id="apartment" formControlName="apartment" />
+  </div>
+  <div>
+    <label for="bedNumber">Bed Number</label>
+    <input id="bedNumber" formControlName="bedNumber" />
+  </div>
+  <div>
+    <label for="bedSide">Bed Side</label>
+    <input id="bedSide" formControlName="bedSide" required />
+  </div>
+  <button type="submit" [disabled]="addressForm.invalid">Add Address</button>
+</form>

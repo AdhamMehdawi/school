@@ -1,0 +1,29 @@
+<h1 class="table-title">{{ title }}</h1>
+
+<button (click)="navigateTo('add-semester')" class="nav-btn">Add Semester</button>
+<button (click)="navigateTo('')" class="nav-btn">Home</button>
+
+<table class="table table-striped student-table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let semester of semesters" class="table-row">
+      <td>{{ semester.id }}</td>
+      <td>{{ semester.name }}</td>
+      <td>{{ semester.startDate }}</td>
+      <td>{{ semester.endDate }}</td>
+      <td>
+        <button (click)="navigateTo('edit-semester', semester.id)" class="action-btn edit">Edit</button>
+        <button (click)="deleteSemester(semester)" class="action-btn delete">Delete</button>
+        <button (click)="navigateTo('semester', semester.id)" class="action-btn view">View</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

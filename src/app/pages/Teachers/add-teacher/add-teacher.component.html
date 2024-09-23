@@ -1,32 +1,52 @@
 <button (click)="navigateTo('teacherList')" class="nav-btn">Back</button>
 
-<form (ngSubmit)="Onsubmit()" class="student-form">
+<form [formGroup]="teacherForm" (ngSubmit)="Onsubmit()" class="teacher-form">
   <div class="form-group">
-    <label for="stId">Student Id</label>
+    <label for="id">Teacher Id</label>
     <input
       type="number"
-      [(ngModel)]="teacherForm.id"
+      formControlName="id"
       class="form-control"
-      id="stId"
-      [readonly]="editMode"
-      name="stId"
+      id="id"
       required
+      [readonly]="editMode"
     />
+    <div
+      *ngIf="teacherForm.get('id')!.invalid && teacherForm.get('id')!.touched"
+    >
+      <small class="text-danger">Teacher ID is required.</small>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="name">Name</label>
     <input
       type="text"
-      [(ngModel)]="teacherForm.name"
+      formControlName="name"
       class="form-control"
       id="name"
-      name="name"
       required
     />
+    <div
+      *ngIf="
+        teacherForm.get('name')!.invalid && teacherForm.get('name')!.touched
+      "
+    >
+      <small class="text-danger"
+        >Name is required and must be at least 3 characters long.</small
+      >
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+
+  <button
+    type="submit"
+    class="btn btn-primary submit-btn"
+    [disabled]="teacherForm.invalid"
+  >
+    Submit
+  </button>
 </form>
 
 <div>
-  {{ teacherForm | json }}
+  {{ teacherForm.value | json }}
 </div>

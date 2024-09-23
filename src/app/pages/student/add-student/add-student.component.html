@@ -1,72 +1,96 @@
-<button (click)="navigateTo('courseList')" class="nav-btn">Back</button>
+<button (click)="navigateTo('studentlist')" class="nav-btn">Back</button>
 
-<form (ngSubmit)="Onsubmit()" class="student-form">
+<form [formGroup]="studentForm" (ngSubmit)="Onsubmit()" class="student-form">
   <div class="form-group">
     <label for="stId">Student Id</label>
     <input
       type="number"
-      [(ngModel)]="studentForm.stId"
+      formControlName="stId"
       class="form-control"
-      [readonly]="editMode"
       id="stId"
-      name="stId"
       required
+      [readonly]="editMode"
     />
+    <div
+      *ngIf="
+        studentForm.get('stId')!.invalid && studentForm.get('stId')!.touched
+      "
+    >
+      <small class="text-danger">Student ID is required.</small>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="name">Name</label>
     <input
       type="text"
-      [(ngModel)]="studentForm.Name"
+      formControlName="Name"
       class="form-control"
       id="name"
-      name="name"
       required
     />
+    <div
+      *ngIf="
+        studentForm.get('Name')!.invalid && studentForm.get('Name')!.touched
+      "
+    >
+      <small class="text-danger"
+        >Name is required and must be at least 3 characters long.</small
+      >
+    </div>
   </div>
+
   <div class="form-group">
     <label for="email">Email</label>
     <input
       type="email"
-      [(ngModel)]="studentForm.email"
+      formControlName="email"
       class="form-control"
       id="email"
-      name="email"
       required
     />
+    <div
+      *ngIf="
+        studentForm.get('email')!.invalid && studentForm.get('email')!.touched
+      "
+    >
+      <small class="text-danger">Valid email is required.</small>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="phone">Phone</label>
     <input
       type="text"
-      [(ngModel)]="studentForm.phone"
+      formControlName="phone"
       class="form-control"
       id="phone"
-      name="phone"
     />
   </div>
-  <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+
+  <button
+    type="submit"
+    class="btn btn-primary submit-btn"
+    [disabled]="studentForm.invalid"
+  >
+    Submit
+  </button>
 </form>
 
 <div>
   <div class="form-group">
     <label for="stId">Student Id</label>
-    {{ studentForm.stId }}
+    {{ studentForm.value.stId }}
   </div>
   <div class="form-group">
     <label for="name">Name</label>
-    {{ studentForm.Name }}
+    {{ studentForm.value.Name }}
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    {{ studentForm.email }}
+    {{ studentForm.value.email }}
   </div>
   <div class="form-group">
-    <label for="phone">Phone</label>
-    {{ studentForm.phone }}
+    <label for="phone"> </label>
   </div>
-</div>
-
-<div>
-  {{ studentForm | json }}
 </div>

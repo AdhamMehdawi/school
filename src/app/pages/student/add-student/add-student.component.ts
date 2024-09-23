@@ -1,27 +1,28 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { StudnetModel } from '../../../Models/student.modle';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { StudentdataService } from '../../../services/studentdata.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-student',
   standalone: true,
-  imports: [FormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-student.component.html',
   styleUrls: ['./add-student.component.css'],
 })
-export class AddStudentComponent implements OnInit    {
-  studentForm: StudnetModel = {
-    email: '',
-    Name: '',
-    stId: 0,
-    phone: '',
-  };
+
+export class AddStudentComponent implements OnInit {
+  studentForm!: FormGroup;
   editMode = false;
 
   constructor(
+    private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     public studentService: StudentdataService
@@ -29,6 +30,13 @@ export class AddStudentComponent implements OnInit    {
  
  
   ngOnInit(): void {
+    this.studentForm = this.fb.group({
+      stId: [0, [Validators.required]],
+      Name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [''],
+    });
+
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
@@ -43,15 +51,20 @@ export class AddStudentComponent implements OnInit    {
       (s) => s.stId === id
     );
     if (student) {
-      this.studentForm = { ...student };
+      this.studentForm.patchValue({
+        stId: student.stId,
+        Name: student.Name,
+        email: student.email,
+        phone: student.phone,
+      });
     }
   }
 
   Onsubmit() {
     if (this.editMode) {
-      this.studentService.updateStudent(this.studentForm);
+      this.studentService.updateStudent(this.studentForm.value);
     } else {
-      this.studentService.update(this.studentForm);
+      this.studentService.update(this.studentForm.value);
     }
     this.router.navigate(['studentlist']);
   }

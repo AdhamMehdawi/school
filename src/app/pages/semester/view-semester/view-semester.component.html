@@ -1,0 +1,12 @@
+<div class="semester-details" *ngIf="semester; else notFound">
+    <h2>Semester Details</h2>
+    <p><strong>ID:</strong> {{ semester.id }}</p>
+    <p><strong>Name:</strong> {{ semester.name }}</p>
+    <p><strong>Start Date:</strong> {{ semester.startDate }}</p>
+    <p><strong>End Date:</strong> {{ semester.endDate }}</p>
+  </div>
+  
+  <ng-template #notFound>
+    <p class="not-found">Semester not found!</p>
+  </ng-template>
+  

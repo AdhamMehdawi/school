@@ -1,30 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
-import { CourseModel } from '../../../Models/courseModel';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CourseDataService } from '../../../services/course-data.service';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-course',
   standalone: true,
-  imports: [FormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
   templateUrl: './add-course.component.html',
   styleUrls: ['./add-course.component.css'],
 })
 export class AddCourseComponent implements OnInit {
-  courseForm: CourseModel = {
-    id: 0,
-    name: '',
-    description: '',
-  };
+  courseForm: FormGroup;
   editMode = false;
 
   constructor(
+    private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     public courseDataService: CourseDataService
-  ) {}
+  ) {
+    this.courseForm = this.fb.group({
+      id: [0, [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+    });
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -41,15 +48,19 @@ export class AddCourseComponent implements OnInit {
       (c) => c.id === id
     );
     if (course) {
-      this.courseForm = { ...course };
+      this.courseForm.patchValue({
+        id: course.id,
+        name: course.name,
+        description: course.description,
+      });
     }
   }
 
   Onsubmit() {
     if (this.editMode) {
-      this.courseDataService.updateCourse(this.courseForm);
+      this.courseDataService.updateCourse(this.courseForm.value);
     } else {
-      this.courseDataService.update(this.courseForm);
+      this.courseDataService.update(this.courseForm.value);
     }
     this.router.navigate(['courseList']);
   }
