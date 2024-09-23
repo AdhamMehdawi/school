@@ -8,25 +8,25 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
 })
-export class StudentListComponent implements OnInit,OnChanges,OnDestroy {
+export class StudentListComponent implements OnInit, OnChanges, OnDestroy {
   title: string = 'Student List';
-  sudentSoucrReference:any;
+  sudentSoucrReference: any;
   @Input() students: StudnetModel[] = [];
-  test!:string;
+  test!: string;
   constructor(
     public studentservice: StudentdataService,
     private router: Router
-  ) {}
+  ) { }
   ngOnDestroy(): void {
     this.sudentSoucrReference.unsubscribe();
   }
 
   ngOnInit() {
-    this.sudentSoucrReference= this.studentservice.students.subscribe((c) => {
+    this.sudentSoucrReference = this.studentservice.students.subscribe((c) => {
       this.students = c;
     });
   }
@@ -47,8 +47,7 @@ export class StudentListComponent implements OnInit,OnChanges,OnDestroy {
     alert("hh");
   }
 
-
-  search(){
-      this.studentservice.search(this.test);
+  search() {
+    this.studentservice.search(this.test);
   }
 }

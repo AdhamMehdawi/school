@@ -4,8 +4,8 @@
 
 
 <div style="    float: right; padding: 10px;">
-  <input type="text"  class="nav-btn"  (keyup)="search()"  [(ngModel)]="test"  placeholder="Search Student"  />
-<label>{{test}}</label>
+  <input type="text" class="nav-btn" (keyup)="search()" [(ngModel)]="test" placeholder="Search Student" />
+  <label>{{test}}</label>
 </div>
 
 <table class="table table-striped student-table">
@@ -25,25 +25,16 @@
       <td>{{ student.email }}</td>
       <td>{{ student.phone }}</td>
       <td>
-        <button
-          (click)="navigateTo('edit-student', student.stId)"
-          class="action-btn"
-        >
+        <button (click)="navigateTo('edit-student', student.stId)" class="action-btn">
           Edit
         </button>
         <button (click)="deleteStudent(student.stId)" class="action-btn delete">
           Delete
         </button>
-        <button
-          (click)="navigateTo('student', student.stId)"
-          class="action-btn view"
-        >
+        <button (click)="navigateTo('student', student.stId)" class="action-btn view">
           View
         </button>
-        <button
-          (click)="navigateTo('add-address', student.stId)"
-          class="action-btn view"
-        >
+        <button (click)="navigateTo('add-address', student.stId)" class="action-btn view">
           Addresses
         </button>
       </td>

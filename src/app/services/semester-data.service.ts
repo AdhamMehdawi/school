@@ -41,4 +41,9 @@ export class SemesterDataService {
       this.semesters.next(this.sourceSemesterModel);
     }
   }
+
+  search(input: string) {
+    let newValues = this.sourceSemesterModel.filter(c => c.name.includes(input) || c.id.toString().includes(input) || c.startDate.includes(input) || c.endDate.includes(input));
+    this.semesters.next(newValues);
+  }
 }

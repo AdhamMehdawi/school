@@ -3,6 +3,10 @@
 <button (click)="navigateTo('add-semester')" class="nav-btn">Add Semester</button>
 <button (click)="navigateTo('')" class="nav-btn">Home</button>
 
+<div style="float: right; padding: 10px;">
+  <input type="text" class="nav-btn" (keyup)="search()" [(ngModel)]="input" placeholder="Search Semester" />
+</div>
+
 <table class="table table-striped student-table">
   <thead>
     <tr>
@@ -21,7 +25,9 @@
       <td>{{ semester.endDate }}</td>
       <td>
         <button (click)="navigateTo('edit-semester', semester.id)" class="action-btn edit">Edit</button>
+
         <button (click)="deleteSemester(semester)" class="action-btn delete">Delete</button>
+
         <button (click)="navigateTo('semester', semester.id)" class="action-btn view">View</button>
       </td>
     </tr>
