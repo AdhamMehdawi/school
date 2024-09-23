@@ -6,7 +6,7 @@ import { StudnetModel } from '../Models/student.modle';
 import { AddStudentComponent } from '../pages/student/add-student/add-student.component';
 import { StudentListComponent } from '../pages/student/student-list/student-list.component';
 import { Router, RouterOutlet } from '@angular/router';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-mainpage',
   standalone: true,
@@ -17,6 +17,7 @@ import { Router, RouterOutlet } from '@angular/router';
     CommonModule,
     LoginComponent,
     RouterOutlet,
+    MatSlideToggleModule,
   ],
   templateUrl: './mainpage.component.html',
   styleUrls: ['./mainpage.component.css'],
