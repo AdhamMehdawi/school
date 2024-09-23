@@ -18,7 +18,7 @@ export class CourseComponent implements OnInit {
   constructor(
     public courseDataService: CourseDataService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.courseDataService.courses.subscribe((c) => {
@@ -38,7 +38,8 @@ export class CourseComponent implements OnInit {
     this.courseDataService.deleteCourse(id);
   }
 
-  delete(CourseModel:CourseModel){
-   console.log(CourseModel);
+  delete(CourseModel: CourseModel) {
+    console.log(CourseModel);
   }
+
 }

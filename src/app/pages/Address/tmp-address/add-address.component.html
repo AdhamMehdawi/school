@@ -14,6 +14,7 @@
         Bed Side: {{ addr.bedSide }}
       </p>
     </li>
+
   </ul>
 </div>
 <ng-template #noAddresses>
@@ -23,21 +24,13 @@
 <h3>Add New Addresses</h3>
 <form [formGroup]="form" (ngSubmit)="addAddresses()">
   <div formArrayName="addressForms">
-    <div
-      *ngFor="let addressForm of addressForms.controls; let i = index"
-      [formGroupName]="i"
-      class="address-form"
-    >
+    <div *ngFor="let addressForm of addressForms.controls; let i = index" [formGroupName]="i" class="address-form">
       <h4>Address {{ i + 1 }}</h4>
-      <button
-        type="button"
-        (click)="removeAddressForm(i)"
-        *ngIf="addressForms.length > 1 && i > 0"
-        class="remove-btn"
-      >
+      <button type="button" (click)="removeAddressForm(i)" *ngIf="addressForms.length > 1 && i > 0" class="remove-btn">
         Remove
       </button>
       <div>
+
         <label for="street-{{ i }}">Street</label>
         <input id="street-{{ i }}" formControlName="street" required />
       </div>

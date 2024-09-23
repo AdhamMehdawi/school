@@ -3,15 +3,21 @@ import { Router } from '@angular/router';
 import { SemesterDataService, SemesterModel } from '../../../services/semester-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { MatTableModule } from '@angular/material/table';
+const ELEMENT_DATA: SemesterModel[] = [];
 @Component({
   selector: 'app-semester-list',
   templateUrl: './semester-list.component.html',
   styleUrls: ['./semester-list.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTableModule],
 })
+
+
+
 export class SemesterListComponent implements OnInit {
+  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['id', 'name', 'startDate', 'endDate'];
   semesters: SemesterModel[] = [];
   title: string = 'Semester List';
   input!: string;
@@ -20,6 +26,7 @@ export class SemesterListComponent implements OnInit {
   ngOnInit(): void {
     this.semesterDataService.dataSource.subscribe((data) => {
       this.semesters = data;
+      this.dataSource = this.semesters;
     });
   }
 

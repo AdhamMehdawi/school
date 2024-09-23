@@ -16,22 +16,20 @@
       <td>{{ course.name }}</td>
       <td>{{ course.description }}</td>
       <td>
-        <button
-          (click)="navigateTo('edit-course', course.id)"
-          class="action-btn"
-        >
+        <button (click)="navigateTo('edit-course', course.id)" class="action-btn">
           Edit
         </button>
-       <button (click)="delete(course)" class="action-btn" >
-        Delete {{course.id}}
-       </button>
+        <button (click)="delete(course)" class="action-btn">
+          Delete {{course.id}}
+        </button>
 
 
-        <button
-          (click)="navigateTo('course', course.id)"
-          class="action-btn view"
-        >
+        <button (click)="navigateTo('course', course.id)" class="action-btn view">
           View
+        </button>
+
+        <button (click)="navigateTo('add-classRoom', course.id)" class="action-btn view">
+          clasRooms
         </button>
       </td>
     </tr>

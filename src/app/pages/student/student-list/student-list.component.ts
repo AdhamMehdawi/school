@@ -4,15 +4,18 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { StudnetModel } from '../../../Models/student.modle';
 import { StudentdataService } from '../../../services/studentdata.service';
 import { Router } from '@angular/router';
-
+import { MatTableModule } from '@angular/material/table';
+const ELEMENT_DATA: StudnetModel[] = [];
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTableModule],
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent implements OnInit, OnChanges, OnDestroy {
+  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['stId', 'Name', 'email', 'phone'];
   title: string = 'Student List';
   sudentSoucrReference: any;
   @Input() students: StudnetModel[] = [];
@@ -29,6 +32,7 @@ export class StudentListComponent implements OnInit, OnChanges, OnDestroy {
     this.sudentSoucrReference = this.studentservice.students.subscribe((c) => {
       this.students = c;
     });
+    this.dataSource = this.students;
   }
 
   navigateTo(route: string, id?: number) {

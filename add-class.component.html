@@ -1,0 +1,56 @@
+<h2>ClassRom for Course ID: {{ courseid }}</h2>
+<button (click)="navigateTo('courseList')" class="nav-btn">Back</button>
+
+<div>
+    <ul>
+        <li *ngFor="let classRoom of ClassRoms">
+            <strong>{{ classRoom.Capacity}},{{classRoom.Building}}</strong>
+            <p>
+                Capacity: {{ classRoom.Capacity }}<br />
+                Building: {{ classRoom.Building }}<br />
+                Floor: {{ classRoom.Floor }}<br />
+                Room Number: {{ classRoom.RoomNumber }}<br />
+                Room Side: {{ classRoom.RoomSide }}
+            </p>
+        </li>
+    </ul>
+</div>
+
+
+
+<h3>Add New ClassRooms</h3>
+<form [formGroup]="form" (ngSubmit)="addClasRome()">
+    <div formArrayName="clasRomeForm">
+        <div *ngFor="let classRoomForm of clasRomeForms.controls; let i = index" [formGroupName]="i"
+            class="address-form">
+            <h4>ClassRoom {{ i + 1 }}</h4>
+            <button type="button" (click)="deleteAddressForm(i)" *ngIf="clasRomeForms.length > 1 && i > 0"
+                class="remove-btn">
+                Remove
+            </button>
+
+            <div>
+                <label for="capacity-{{ i }}">Capacity</label>
+                <input id="capacity-{{ i }}" formControlName="Capacity" required />
+            </div>
+            <div>
+                <label for="building-{{ i }}">Building</label>
+                <input id="building-{{ i }}" formControlName="Building" />
+            </div>
+            <div>
+                <label for="floor-{{ i }}">Floor</label>
+                <input id="floor-{{ i }}" formControlName="Floor" />
+            </div>
+            <div>
+                <label for="roomNumber-{{ i }}">Room Number</label>
+                <input id="roomNumber-{{ i }}" formControlName="RoomNumber" />
+            </div>
+            <div>
+                <label for="roomSide-{{ i }}">Room Side</label>
+                <input id="roomSide-{{ i }}" formControlName="RoomSide" />
+            </div>
+        </div>
+    </div>
+    <button type="button" (click)="addClassRoomForm()" class="add-btn">Add Another ClassRoom</button>
+    <button type="submit" class="submit-btn">save ClassRom</button>
+</form>
