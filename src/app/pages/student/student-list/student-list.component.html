@@ -1,8 +1,6 @@
 <h1 class="table-title">{{ title }}</h1>
 <button (click)="navigateTo('add-student')" class="nav-btn">Add Student</button>
 <button (click)="navigateTo('')" class="nav-btn">Home</button>
-
-
 <div style="    float: right; padding: 10px;">
   <input type="text" class="nav-btn" (keyup)="search()" [(ngModel)]="test" placeholder="Search Student" />
   <label>{{test}}</label>
@@ -26,11 +24,7 @@
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
 </table>
-
-
 
 <table class="table table-striped student-table">
   <thead>

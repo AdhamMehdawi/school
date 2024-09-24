@@ -8,11 +8,11 @@ import {
 } from '@angular/forms';
 import { StudentdataService } from '../../../services/studentdata.service';
 import { CommonModule } from '@angular/common';
-
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-add-student',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
   templateUrl: './add-student.component.html',
   styleUrls: ['./add-student.component.css'],
 })
@@ -25,17 +25,21 @@ export class AddStudentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public studentService: StudentdataService
-  ) {}
- 
- 
-  ngOnInit(): void {
+  ) {
     this.studentForm = this.fb.group({
       stId: [0, [Validators.required]],
       Name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
+      phone: ['', [Validators.required]],
     });
 
+  }
+
+
+  ngOnInit(): void {
+    if (this.studentForm.valid) {
+      console.log(this.studentForm.value);
+    }
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
@@ -60,12 +64,16 @@ export class AddStudentComponent implements OnInit {
   }
 
   Onsubmit() {
-    if (this.editMode) {
-      this.studentService.updateStudent(this.studentForm.value);
-    } else {
-      this.studentService.update(this.studentForm.value);
+    this.studentForm.markAllAsTouched();//make it all tuched to make sure all validation are checked
+    if (!this.studentForm.invalid) {
+
+      if (this.editMode) {
+        this.studentService.updateStudent(this.studentForm.value);
+      } else {
+        this.studentService.update(this.studentForm.value);
+      }
+      this.router.navigate(['studentList']);
     }
-    this.router.navigate(['studentlist']);
   }
 
   navigateTo(route: string) {

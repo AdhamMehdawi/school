@@ -1,78 +1,58 @@
-<button (click)="navigateTo('studentlist')" class="nav-btn">Back</button>
+<button (click)="navigateTo('studentList')" class="nav-btn">Back</button>
 
 <form [formGroup]="studentForm" (ngSubmit)="Onsubmit()" class="student-form">
+
   <div class="form-group">
-    <label for="stId">Student Id</label>
-    <input
-      type="number"
-      formControlName="stId"
-      class="form-control"
-      id="stId"
-      required
-      [readonly]="editMode"
-    />
-    <div
-      *ngIf="
-        studentForm.get('stId')!.invalid && studentForm.get('stId')!.touched
-      "
-    >
-      <small class="text-danger">Student ID is required.</small>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Student id</mat-label>
+      <input matInput formControlName="stId" placeholder="enter your stId" id="stId" class="form-controler">
+      <mat-error *ngIf="studentForm.get('stId')!.hasError('required')">
+        Student ID is required.
+      </mat-error>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <label for="name">Name</label>
-    <input
-      type="text"
-      formControlName="Name"
-      class="form-control"
-      id="name"
-      required
-    />
-    <div
-      *ngIf="
-        studentForm.get('Name')!.invalid && studentForm.get('Name')!.touched
-      "
-    >
-      <small class="text-danger"
-        >Name is required and must be at least 3 characters long.</small
-      >
-    </div>
+    <mat-form-field>
+      <mat-label>name</mat-label>
+      <input matInput formControlName="Name" placeholder="enter your name" id="Name" class="form-controler">
+      <mat-error *ngIf="studentForm.get('Name')!.hasError('required')">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+
   </div>
 
   <div class="form-group">
-    <label for="email">Email</label>
-    <input
-      type="email"
-      formControlName="email"
-      class="form-control"
-      id="email"
-      required
-    />
-    <div
-      *ngIf="
-        studentForm.get('email')!.invalid && studentForm.get('email')!.touched
-      "
-    >
-      <small class="text-danger">Valid email is required.</small>
-    </div>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="enter your email" id="email" class="form-controler">
+
+      <mat-error *ngIf="studentForm.get('email')!.hasError('required')">
+        Email is required.
+      </mat-error>
+      <mat-error *ngIf="studentForm.get('email')!.hasError('email')">
+        Please enter a valid email address.
+      </mat-error>
+    </mat-form-field>
+
+
   </div>
 
   <div class="form-group">
-    <label for="phone">Phone</label>
-    <input
-      type="text"
-      formControlName="phone"
-      class="form-control"
-      id="phone"
-    />
+
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" placeholder="enter phone number" id="phone" class="form-controler">
+      <mat-error *ngIf="studentForm.get('phone')!.hasError('required')">
+        Phone number is required.
+      </mat-error>
+    </mat-form-field>
+
   </div>
 
-  <button
-    type="submit"
-    class="btn btn-primary submit-btn"
-    [disabled]="studentForm.invalid"
-  >
+  <button type="submit" class="btn btn-primary submit-btn">
     Submit
   </button>
 </form>
